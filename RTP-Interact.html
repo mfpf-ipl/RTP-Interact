@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTP-Interact</title>
+    <style>
+        /* Estilo geral */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #ccc;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        header .header-content h1 {
+            margin: 0;
+            font-size: 2.8em;
+        }
+
+        header .header-content p {
+            margin: 5px 0 0;
+            font-size: 1.3em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .video-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .video-section video {
+            width: 80%;
+            height: auto;
+            border: 3px solid #003366;
+            border-radius: 8px;
+        }
+
+        .votacao-section {
+            background-color: #002244;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .votacao-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #99ccff;
+        }
+
+        .votacao-section p {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #99ccff;
+        }
+
+        .opcoes-votacao {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .opcao {
+            background-color: #001122;
+            border: 2px solid #003366;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            width: 45%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .opcao h3 {
+            margin-bottom: 15px;
+            color: #99ccff;
+        }
+
+        .opcao button {
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .opcao button:hover {
+            background-color: #0055cc;
+        }
+
+        .resultados-section {
+            text-align: center;
+            padding: 20px;
+            background-color: #001a33;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .resultados-section h2 {
+            margin-bottom: 10px;
+            color: #99ccff;
+        }
+
+        .progress-bar {
+            background-color: #003366;
+            border-radius: 8px;
+            height: 20px;
+            width: 100%;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            background-color: #0055cc;
+            border-radius: 8px;
+            text-align: center;
+            color: #fff;
+            line-height: 20px;
+        }
+
+        .curiosidades-section {
+            background-color: #001a33;
+            padding: 20px;
+            border-radius: 8px;
+            color: #99ccff;
+        }
+
+        .curiosidades-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #99ccff;
+        }
+
+        .curiosidades-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .curiosidades-section ul li {
+            background: #002244;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            background-color: #000033;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>RTP-Interact</h1>
+            <p>Explore a história de D. Afonso Henriques em animação interativa!</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="video-section">
+            <h2>Assista ao Episódio Piloto</h2>
+            <video id="episodioVideo" controls>
+                <source id="videoSource" src="video_opcao1.mp4" type="video/mp4">
+                Seu navegador não suporta a reprodução de vídeo.
+            </video>
+        </section>
+
+        <section class="votacao-section">
+            <h2>Escolha o que vai acontecer!</h2>
+            <p>Envie um SMS com a sua escolha para o número: <strong>+351 123 456 789</strong></p>
+
+            <div class="opcoes-votacao">
+                <div class="opcao">
+                    <h3>Opção 1: D. Afonso Henriques enfrenta os Mouros.</h3>
+                    <button onclick="alterarVideo('video_opcao1.mp4', 'Opção 1')">Vote na Opção 1</button>
+                </div>
+                <div class="opcao">
+                    <h3>Opção 2: D. Afonso Henriques negocia uma trégua.</h3>
+                    <button onclick="alterarVideo('video_opcao2.mp4', 'Opção 2')">Vote na Opção 2</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="resultados-section">
+            <h2>Resultados Parciais</h2>
+            <div class="progress-bar">
+                <span id="progressOp1" style="width: 50%;">50%</span>
+            </div>
+            <div class="progress-bar">
+                <span id="progressOp2" style="width: 50%;">50%</span>
+            </div>
+        </section>
+
+        <section class="curiosidades-section">
+            <h2>Curiosidades sobre D. Afonso Henriques</h2>
+            <ul>
+                <li><strong>Primeiro Rei:</strong> D. Afonso Henriques foi o primeiro rei de Portugal, governando de 1139 a 1185.</li>
+                <li><strong>Batalha de Ourique:</strong> Ele liderou a vitória na Batalha de Ourique, consolidando sua posição como líder.</li>
+                <li><strong>Patrimônio Nacional:</strong> É uma figura central na história e identidade de Portugal.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 RTP-Interact. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        let votosOp1 = 50;
+        let votosOp2 = 50;
+
+        // Função para alterar o vídeo com base na escolha
+        function alterarVideo(videoSrc, opcao) {
+            const video = document.getElementById('episodioVideo');
+            const source = document.getElementById('videoSource');
+            source.src = videoSrc;
+            video.load();
+            video.play();
+
+            // Simula votos ao selecionar uma opção
+            if (opcao === 'Opção 1') {
+                votosOp1 += Math.floor(Math.random() * 10);
+            } else {
+                votosOp2 += Math.floor(Math.random() * 10);
+            }
+
+            atualizarResultados();
+        }
+
+        // Função para atualizar os resultados visuais
+        function atualizarResultados() {
+            const total = votosOp1 + votosOp2;
+            const percOp1 = Math.round((votosOp1 / total) * 100);
+            const percOp2 = 100 - percOp1;
+
+            document.getElementById('progressOp1').style.width = percOp1 + '%';
+            document.getElementById('progressOp1').innerText = percOp1 + '%';
+
+            document.getElementById('progressOp2').style.width = percOp2 + '%';
+            document.getElementById('progressOp2').innerText = percOp2 + '%';
+        }
+
+        // Inicializa os resultados
+        atualizarResultados();
+    </script>
+</body>
+</html>
